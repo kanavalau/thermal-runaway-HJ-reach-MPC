@@ -3,7 +3,7 @@ Andrei Kanavalau, Sanjay Lall
 
 Stanford University
 
-Running the code requires MATLAB and [A Toolbox of Level Set Methods by Ian M. Mitchell](https://www.cs.ubc.ca/~mitchell/ToolboxLS/). Please follow the link for detail on how to install and use it.
+Running the code requires MATLAB and [A Toolbox of Level Set Methods by Ian M. Mitchell](https://www.cs.ubc.ca/~mitchell/ToolboxLS/). Please follow the link for details on how to install and use it.
 
 ## Code overview
 * System_parameters/System_parameters.m defines the system parameters, which are then used in all other computations/simulations
