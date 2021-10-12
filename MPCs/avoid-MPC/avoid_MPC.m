@@ -49,6 +49,8 @@ Sols = [];
 qs = [];
 % Exitflag vector
 ef = zeros(1,ni);
+% Computational time vector
+comp_t = zeros(1,ni);
 
 % Load the avoid set
 avoid_set_data = load('../../Compute_avoid_set/avoid_set_od.mat');
@@ -56,9 +58,11 @@ avoid_set_data = load('../../Compute_avoid_set/avoid_set_od.mat');
 for i = 1:ni
     
     % Calculate optimal control parameters
+    tic
     [q_int, ~, exitflag, ~] = fmincon(@(x) objective_MPC(x,tspan,dt,y0,T_sp,param,np),...
             qg, A1, b, Aeq, beq, lb, ub,@(x) NLconstraints(x,tspan,dt,y0,T_sp,param,np,avoid_set_data));
-    
+    comp_t(i) = toc;
+        
     ef(i) = exitflag;
     
     % First lower and upper bound are updated every control set to ensure
@@ -155,4 +159,9 @@ plot(Sols(1,:),alpha)
 xlabel('Time, $t$/s','interpreter','latex')
 ylabel('Level-set function $\alpha^{*}$','interpreter','latex')
 
-save(['plotting_data_MPC_avoid_',num2str(T_sp)],'Sols','qs','alpha')
+% Plot histogram of computational time
+histogram(comp_t,'FaceColor','k','Normalization','probability')
+xlabel('Computational time per iteration/s','interpreter','latex')
+ylabel('Fraction of total iterations','interpreter','latex')
+
+save(['plotting_data_MPC_avoid_',num2str(T_sp)],'Sols','qs','alpha','comp_t')

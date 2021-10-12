@@ -59,3 +59,24 @@ xlabel('Time, $t$/s','interpreter','latex','FontSize',24)
 ylabel('Level-set function $\alpha^{*}$','interpreter','latex','FontSize',24)
 legend('Avoid-MPC $T_\mathrm{sp}=410$ K','Standard-MPC $T_\mathrm{sp}=400$ K','Standard-MPC $T_\mathrm{sp}=410$ K',...
     'interpreter','latex','FontSize',24,'Location','SouthEast')
+
+figure(5)
+plot(avoid_410.Sols(1,:),avoid_410.qs,'k','LineWidth',1.5)
+hold on
+plot(stndrd_400.Sols(1,:),stndrd_400.qs,'b','LineWidth',1.5)
+plot(stndrd_410.Sols(1,1:2105),stndrd_410.qs(1:2105),'r','LineWidth',1.5)
+ax = gca;
+ax.FontSize = 14;
+ax.TickLabelInterpreter = 'latex';
+xlabel('Time, $t$/s','interpreter','latex','FontSize',14)
+ylabel('Coolant flow rate $q$/m$^3$ s$^{-1}$','interpreter','latex','FontSize',14)
+legend('Avoid-MPC $T_\mathrm{sp}=410$ K','Standard-MPC $T_\mathrm{sp}=400$ K','Standard-MPC $T_\mathrm{sp}=410$ K',...
+    'interpreter','latex','FontSize',14,'Location','South')
+
+figure(6)
+histogram(avoid_410.comp_t,'FaceColor','k','Normalization','probability')
+ax = gca;
+ax.FontSize = 14;
+ax.TickLabelInterpreter = 'latex';
+xlabel('Computational time per iteration/s','interpreter','latex')
+ylabel('Fraction of total iterations','interpreter','latex')
