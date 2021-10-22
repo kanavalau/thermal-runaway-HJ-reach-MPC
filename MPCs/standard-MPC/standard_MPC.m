@@ -49,13 +49,14 @@ Sols = [];
 qs = [];
 % Exitflag vector
 ef = zeros(1,ni);
-
+% Optimization solver options
+optionsOpt = optimoptions('fmincon','Algorithm','sqp');
 
 for i = 1:ni
     
     % Calculate optimal control parameters
     [q_int, ~, exitflag, ~] = fmincon(@(x) objective_MPC(x,tspan,dt,y0,T_sp,param,np),...
-            qg, A1, b, Aeq, beq, lb, ub,[]);
+            qg, A1, b, Aeq, beq, lb, ub,[],optionsOpt);
         
 	ef(i) = exitflag;
     

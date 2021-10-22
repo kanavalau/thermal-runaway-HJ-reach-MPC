@@ -51,6 +51,8 @@ qs = [];
 ef = zeros(1,ni);
 % Computational time vector
 comp_t = zeros(1,ni);
+% Optimization solver options
+optionsOpt = optimoptions('fmincon','Algorithm','sqp');
 
 % Load the avoid set
 avoid_set_data = load('../../Compute_avoid_set/avoid_set_od.mat');
@@ -60,7 +62,7 @@ for i = 1:ni
     % Calculate optimal control parameters
     tic
     [q_int, ~, exitflag, ~] = fmincon(@(x) objective_MPC(x,tspan,dt,y0,T_sp,param,np),...
-            qg, A1, b, Aeq, beq, lb, ub,@(x) NLconstraints(x,tspan,dt,y0,T_sp,param,np,avoid_set_data));
+            qg, A1, b, Aeq, beq, lb, ub,@(x) NLconstraints(x,tspan,dt,y0,T_sp,param,np,avoid_set_data),optionsOpt);
     comp_t(i) = toc;
         
     ef(i) = exitflag;
